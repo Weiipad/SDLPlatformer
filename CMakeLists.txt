@@ -8,6 +8,7 @@ add_executable(plat)
 
 target_sources(plat
     PUBLIC
+    
     src/sdl_header.h
     src/scene.h
     src/main_scene.h
@@ -17,6 +18,7 @@ target_sources(plat
     src/sprite.h
 
     PRIVATE
+
     src/main.c
     src/scene.c
     src/main_scene.c
