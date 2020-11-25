@@ -14,6 +14,7 @@ target_sources(plat
     src/node.h
     src/game_state.h
     src/my_math.h
+    src/sprite.h
 
     PRIVATE
     src/main.c
@@ -21,6 +22,8 @@ target_sources(plat
     src/main_scene.c
     src/node.c
     src/game_state.c
-    src/my_math.c)
+    src/my_math.c
+    src/sprite.c
+)
 
 target_link_libraries(plat SDL2 m)

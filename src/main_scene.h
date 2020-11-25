@@ -6,7 +6,7 @@
 typedef struct MainScene 
 {
     Scene vtable;
-    Node root;
+    Node* root;
 } MainScene;
 
 Scene* MainScene_Create();

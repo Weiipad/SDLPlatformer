@@ -17,6 +17,11 @@ typedef struct Node
     struct Node* children;
 } Node;
 
+void Node_PushChild(Node* self, Node* child);
+
+// Delete the first child in children.
+void Node_PopChild(Node* self);
+
 void Node_Init(Node* self);
 
 void Node_Update(Node* self, float deltaTime);

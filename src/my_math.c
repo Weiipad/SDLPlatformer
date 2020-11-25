@@ -69,8 +69,8 @@ int RectOverlaps(Rect* self, Rect* rhs)
     Vec2 right_bottom = Vec2_Add(*rhs->pos, half_size);
 
     return 
-    RectIncludes(self, Vec2_Sub(*rhs->pos, half_size)) ||
-    RectIncludes(self, right_bottom) ||
-    RectIncludes(self, Vec2_Sub(right_bottom, Vec2_ProjY(rhs->size))) ||
-    RectIncludes(self, Vec2_Sub(right_bottom, Vec2_ProjX(rhs->size)));
+        RectIncludes(self, Vec2_Sub(*rhs->pos, half_size)) ||
+        RectIncludes(self, right_bottom) ||
+        RectIncludes(self, Vec2_Sub(right_bottom, Vec2_ProjY(rhs->size))) ||
+        RectIncludes(self, Vec2_Sub(right_bottom, Vec2_ProjX(rhs->size)));
 }

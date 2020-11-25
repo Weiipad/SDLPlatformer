@@ -1,5 +1,25 @@
 #include "node.h"
 
+
+void Node_PushChild(Node* self, Node* child)
+{
+    if (!child) return;
+
+    child->next = self->children;
+    self->children = child;
+}
+
+void Node_PopChild(Node* self)
+{
+    if (!self) return;
+
+    Node* child = self->children;
+    self->children = child->next;
+    child->next = 0;
+
+    Node_Destroy(child);
+}
+
 void Node_Init(Node* self)
 {
     if (!self) return;
@@ -31,7 +51,7 @@ void Node_Draw(Node* self, Vec2 offset)
     if (self->draw) self->draw(self->self, offset_);
     for (Node* i = self->children; i; i = i->next)
     {
-        Node_Draw(self, offset_);
+        Node_Draw(i, offset_);
     }
 }
 
@@ -39,10 +59,10 @@ void Node_Destroy(Node* self)
 {
     if (!self) return;
 
-    for (Node* i = self->children; i; i = i->next)
+    while (self->children)
     {
-        Node_Destroy(i);
+        Node_PopChild(self);
     }
     if (self->destroy) self->destroy(self->self);
-    free(self->self);
+    if (self->self) free(self->self);
 }

@@ -13,6 +13,6 @@ void Scene_Update(Scene* self, float deltaTime)
 
 void Scene_Destroy(Scene* self)
 {
-    self->destroy(self->destroy);
+    self->destroy(self->self);
     free(self->self);
 }
