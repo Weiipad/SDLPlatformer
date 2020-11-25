@@ -2,7 +2,8 @@
 
 #include "scene.h"
 
-typedef struct MainScene {
+typedef struct MainScene 
+{
     Scene vtable;
 } MainScene;
 

@@ -1,6 +1,7 @@
 #pragma once
 
-typedef struct Scene {
+typedef struct Scene 
+{
     void* self;
     void (*start)(void* self);
     void (*update)(void* self, float deltaTime);

@@ -3,11 +3,12 @@
 #include "sdl_header.h"
 #include "scene.h"
 
-typedef struct GameState {
+typedef struct GameState 
+{
     SDL_Window* window;
     SDL_Renderer* renderer;
 
-    unsigned char running;
+    int running;
 
     Scene* current_scene;
 } GameState;
