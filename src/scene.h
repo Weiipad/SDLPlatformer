@@ -8,8 +8,8 @@ typedef struct Scene
     void (*destroy)(void* self);
 } Scene;
 
-void SceneStart(Scene* self);
+void Scene_Start(Scene* self);
 
-void SceneUpdate(Scene* self, float deltaTime);
+void Scene_Update(Scene* self, float deltaTime);
 
-void SceneDestroy(Scene* self);
+void Scene_Destroy(Scene* self);

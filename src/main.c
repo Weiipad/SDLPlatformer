@@ -7,8 +7,8 @@ int main(int argc, char** argv)
 {
     GameState* game = GetGameState();
 
-    GameStateInit(game, NewMainScene());
-    GameStateRun(game);
-    GameStateDestroy(game);
+    GameState_Init(game, MainScene_Create());
+    GameState_Run(game);
+    GameState_Destroy(game);
     return 0;
 }

@@ -1,16 +1,12 @@
 #pragma once
 
 #include "scene.h"
+#include "node.h"
 
 typedef struct MainScene 
 {
     Scene vtable;
+    Node root;
 } MainScene;
 
-Scene* NewMainScene();
-
-void MainSceneStart(void* self);
-
-void MainSceneUpdate(void* self, float deltaTime);
-
-void MainSceneDestroy(void* self);
+Scene* MainScene_Create();

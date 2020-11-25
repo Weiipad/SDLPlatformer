@@ -15,10 +15,10 @@ typedef struct GameState
 
 GameState* GetGameState();
 
-void GameStateInit(GameState* self, Scene* scene);
+void GameState_Init(GameState* self, Scene* scene);
 
-void GameStateShiftScene(GameState* self, Scene* scene);
+void GameState_ShiftScene(GameState* self, Scene* scene);
 
-void GameStateRun(GameState* self);
+void GameState_Run(GameState* self);
 
-void GameStateDestroy(GameState* self);
+void GameState_Destroy(GameState* self);

@@ -4,11 +4,11 @@ static GameState* instance;
 
 GameState* GetGameState()
 {
-    if (!instance) instance = malloc(sizeof(GameState));
+    if (!instance) instance = (GameState*)malloc(sizeof(GameState));
     return instance;
 }
 
-void GameStateInit(GameState* self, Scene* scene)
+void GameState_Init(GameState* self, Scene* scene)
 {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
@@ -21,17 +21,17 @@ void GameStateInit(GameState* self, Scene* scene)
     self->current_scene = scene;
 }
 
-void GameStateShiftScene(GameState* self, Scene* scene)
+void GameState_ShiftScene(GameState* self, Scene* scene)
 {
     if (!scene) return;
-    SceneDestroy(self->current_scene);
-    SceneStart(scene);
+    Scene_Destroy(self->current_scene);
+    Scene_Start(scene);
     self->current_scene = scene;
 }
 
-void GameStateRun(GameState* self)
+void GameState_Run(GameState* self)
 {
-    SceneStart(self->current_scene);
+    Scene_Start(self->current_scene);
 
     SDL_Event e;
     Uint32 prev_tick = SDL_GetTicks();
@@ -49,15 +49,15 @@ void GameStateRun(GameState* self)
 
         float deltaTime = (float)(now_tick - prev_tick) / 1000.0f;
 
-        SceneUpdate(self->current_scene, deltaTime);
+        Scene_Update(self->current_scene, deltaTime);
 
         SDL_RenderPresent(self->renderer);
     }
 }
 
-void GameStateDestroy(GameState* self)
+void GameState_Destroy(GameState* self)
 {
-    SceneDestroy(self->current_scene);
+    Scene_Destroy(self->current_scene);
     SDL_DestroyRenderer(self->renderer);
     SDL_DestroyWindow(self->window);
     SDL_Quit();

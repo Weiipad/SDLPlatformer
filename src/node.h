@@ -1,5 +1,6 @@
 #pragma once
 
+#include "my_math.h"
 #include <stdlib.h>
 
 typedef struct Node 
@@ -7,36 +8,19 @@ typedef struct Node
     void* self;
     void (*init)(void* self);
     void (*update)(void* self, float deltaTime);
+    void (*draw)(void* self, Vec2 offset);
     void (*destroy)(void* self);
+
+    Vec2 position;
 
     struct Node* next;
     struct Node* children;
 } Node;
 
-void NodeInit(Node* self)
-{
-    self->init(self->self);
-    for (Node* i = self->children; i; i = i->next)
-    {
-        NodeInit(i);
-    }
-}
+void Node_Init(Node* self);
 
-void NodeUpdate(Node* self, float deltaTime)
-{
-    self->update(self->self, deltaTime);
-    for (Node* i = self->children; i; i = i->next)
-    {
-        NodeUpdate(i, deltaTime);
-    }
-}
+void Node_Update(Node* self, float deltaTime);
 
-void NodeDestroy(Node* self)
-{
-    for (Node* i = self->children; i; i = i->next)
-    {
-        NodeDestroy(i);
-    }
-    self->destroy(self->self);
-    free(self->self);
-}
+void Node_Draw(Node* self, Vec2 offset);
+
+void Node_Destroy(Node* self);

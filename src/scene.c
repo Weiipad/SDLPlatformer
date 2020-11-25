@@ -1,17 +1,17 @@
 #include "scene.h"
 #include <stdlib.h>
 
-void SceneStart(Scene* self)
+void Scene_Start(Scene* self)
 {
     self->start(self->self);
 }
 
-void SceneUpdate(Scene* self, float deltaTime)
+void Scene_Update(Scene* self, float deltaTime)
 {
     self->update(self->self, deltaTime);
 }
 
-void SceneDestroy(Scene* self)
+void Scene_Destroy(Scene* self)
 {
     self->destroy(self->destroy);
     free(self->self);
