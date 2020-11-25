@@ -46,7 +46,7 @@ Scene* MainScene_Create()
 
     obj->root = (Node*)malloc(sizeof(Node));
     obj->root->self = 0;
-    obj->root->position = Vec2_Create(300, 400);
+    obj->root->position = Vec2_Create(400, 300);
     obj->root->next = 0;
     obj->root->children = 0;
 

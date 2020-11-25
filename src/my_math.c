@@ -52,24 +52,20 @@ float Vec2_Magnitude(Vec2 self)
 
 int RectIncludes(Rect* self, Vec2 v)
 {
-    Vec2 half_size = Vec2_Div(self->size, 2.0);
-    float left = self->pos->x - half_size.x;
-    float right = self->pos->x + half_size.x;
-    float top = self->pos->y - half_size.y;
-    float bottom = self->pos->y + half_size.y;
+    float right = self->pos->x + self->size.x;
+    float bottom = self->pos->y + self->size.y;
 
-    if (v.x < left || v.x > right) return 0;
-    if (v.y < top || v.y > bottom) return 0;
+    if (v.x < self->pos->x || v.x > right) return 0;
+    if (v.y < self->pos->y || v.y > bottom) return 0;
     return 1;
 }
 
 int RectOverlaps(Rect* self, Rect* rhs)
 {
-    Vec2 half_size = Vec2_Div(rhs->size, 2.0);
-    Vec2 right_bottom = Vec2_Add(*rhs->pos, half_size);
+    Vec2 right_bottom = Vec2_Add(*rhs->pos, rhs->size);
 
     return 
-        RectIncludes(self, Vec2_Sub(*rhs->pos, half_size)) ||
+        RectIncludes(self, *rhs->pos) ||
         RectIncludes(self, right_bottom) ||
         RectIncludes(self, Vec2_Sub(right_bottom, Vec2_ProjY(rhs->size))) ||
         RectIncludes(self, Vec2_Sub(right_bottom, Vec2_ProjX(rhs->size)));
