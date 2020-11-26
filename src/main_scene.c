@@ -5,6 +5,8 @@
 #include "sprite.h"
 #include "rect_shape.h"
 
+Node* dmy = 0;
+
 void MainScene_Start(void* self_)
 {
     MainScene* self = (MainScene*)self_;
@@ -12,18 +14,18 @@ void MainScene_Start(void* self_)
     SDL_Surface* img = SDL_LoadBMP("assets/dummy.bmp");
 
     SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, img);
+
+    dmy = Dummy_Create();
+
+    Node_PushChild(dmy, Sprite_Create(texture, Vec2_Create(100, 100), Vec2_Create(100.0f, 100.0f)));
+    Node_PushChild(dmy, RectShape_Create(Vec2_Create(50, 50), Vec2_Create(100, 100)));
     
-
-    Node* rect = RectShape_Create(Vec2_Create(50, 50), Vec2_Create(100, 100));
-
-    Node_PushChild(self->root, Sprite_Create(texture, Vec2_Create(100.0f, 100.0f)));
-    Node_PushChild(self->root, rect);
-
+    Node_PushChild(self->root, dmy);
 
     Node_Init(self->root);
 }
 
-void MainScene_Update(void* self_, float deltaTime)
+void MainScene_Update(void* self_)
 {
     MainScene* self = (MainScene*)self_;
     SDL_Renderer* renderer = GetGameState()->renderer;
@@ -31,12 +33,36 @@ void MainScene_Update(void* self_, float deltaTime)
     SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0xff);
     SDL_RenderClear(renderer);
 
-    Node_Update(self->root, deltaTime);
+    Vec2 dir = Vec2_Create(0, 0);
+
+    const Uint8* key = SDL_GetKeyboardState(0);
+
+    if (key[SDL_SCANCODE_A])
+    {
+        dir.x -= 1;
+    }
+
+    if (key[SDL_SCANCODE_D])
+    {
+        dir.x += 1;
+    }
+
+    if (key[SDL_SCANCODE_W])
+    {
+        dir.y -= 1;
+    }
+
+    if (key[SDL_SCANCODE_S])
+    {
+        dir.y += 1;
+    }
+
+    Vec2 ndir = Vec2_Normalize(dir);
+
+    Vec2_AddAssign(&dmy->position, Vec2_Mul(ndir, 0.05f * GetGameState()->deltaTime));
+
+    Node_Update(self->root, Vec2_Create(0, 0));
     Node_Draw(self->root, Vec2_Create(0, 0));
-    
-    SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0, 0);
-    SDL_Rect dst = { 100, 0, 100, 100};
-    SDL_RenderFillRect(renderer, &dst);
 }
 
 void MainScene_Destroy(void* self_)
@@ -48,20 +74,20 @@ void MainScene_Destroy(void* self_)
 
 Scene* MainScene_Create()
 {
-    MainScene* obj = (MainScene*)malloc(sizeof(MainScene));
+    MainScene* self = (MainScene*)malloc(sizeof(MainScene));
 
-    obj->vtable.self = obj;
-    obj->vtable.start = MainScene_Start;
-    obj->vtable.update = MainScene_Update;
-    obj->vtable.destroy = MainScene_Destroy;
+    self->super.self = self;
+    self->super.start = MainScene_Start;
+    self->super.update = MainScene_Update;
+    self->super.destroy = MainScene_Destroy;
 
-    obj->root = (Node*)malloc(sizeof(Node));
-    obj->root->self = 0;
-    obj->root->position = Vec2_Create(0, 0);
-    obj->root->next = 0;
-    obj->root->children = 0;
+    self->root = (Node*)malloc(sizeof(Node));
+    self->root->self = 0;
+    self->root->position = Vec2_Create(0, 0);
+    self->root->next = 0;
+    self->root->children = 0;
 
-    return &obj->vtable;
+    return &self->super;
 }
 
 

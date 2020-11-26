@@ -4,12 +4,12 @@ typedef struct Scene
 {
     void* self;
     void (*start)(void* self);
-    void (*update)(void* self, float deltaTime);
+    void (*update)(void* self);
     void (*destroy)(void* self);
 } Scene;
 
 void Scene_Start(Scene* self);
 
-void Scene_Update(Scene* self, float deltaTime);
+void Scene_Update(Scene* self);
 
 void Scene_Destroy(Scene* self);

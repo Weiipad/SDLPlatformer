@@ -31,4 +31,4 @@ PRIVATE
     src/player.c
 )
 
-target_link_libraries(plat SDL2 m)
+target_link_libraries(plat SDL2)

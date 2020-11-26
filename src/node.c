@@ -1,5 +1,6 @@
 #include "node.h"
 
+#include <string.h>
 
 void Node_PushChild(Node* self, Node* child)
 {
@@ -31,14 +32,14 @@ void Node_Init(Node* self)
     }
 }
 
-void Node_Update(Node* self, float deltaTime)
+void Node_Update(Node* self, Vec2 offset)
 {
     if (!self) return;
 
-    if (self->update) self->update(self->self, deltaTime);
+    if (self->update) self->update(self->self, offset);
     for (Node* i = self->children; i; i = i->next)
     {
-        Node_Update(i, deltaTime);
+        Node_Update(i, offset);
     }
 }
 
@@ -65,4 +66,13 @@ void Node_Destroy(Node* self)
     }
     if (self->destroy) self->destroy(self->self);
     if (self->self) free(self->self);
+}
+
+Node* Dummy_Create()
+{
+    Dummy* self = (Dummy*)malloc(sizeof(Dummy));
+    memset(self, 0, sizeof(Dummy));
+    self->super.self = self;
+
+    return &self->super;
 }

@@ -7,10 +7,10 @@ typedef struct GameState
 {
     SDL_Window* window;
     SDL_Renderer* renderer;
+    Scene* current_scene;
 
     int running;
-
-    Scene* current_scene;
+    float deltaTime;
 } GameState;
 
 GameState* GetGameState();

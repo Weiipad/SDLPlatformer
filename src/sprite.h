@@ -1,7 +1,7 @@
 #pragma once
 
 #include "node.h"
-#include <SDL2/SDL.h>
+#include "sdl_header.h"
 
 typedef struct Sprite
 {
@@ -10,4 +10,4 @@ typedef struct Sprite
     Vec2 size;
 } Sprite;
 
-Node* Sprite_Create(SDL_Texture* texture, Vec2 size);
+Node* Sprite_Create(SDL_Texture* texture, Vec2 position, Vec2 size);

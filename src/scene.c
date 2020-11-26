@@ -6,9 +6,9 @@ void Scene_Start(Scene* self)
     self->start(self->self);
 }
 
-void Scene_Update(Scene* self, float deltaTime)
+void Scene_Update(Scene* self)
 {
-    self->update(self->self, deltaTime);
+    self->update(self->self);
 }
 
 void Scene_Destroy(Scene* self)

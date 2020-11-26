@@ -22,7 +22,7 @@ void Sprite_Destroy(void* self_)
     SDL_DestroyTexture(self->texture);
 }
 
-Node* Sprite_Create(SDL_Texture* texture, Vec2 size)
+Node* Sprite_Create(SDL_Texture* texture, Vec2 position, Vec2 size)
 {
     Sprite* self = (Sprite*)malloc(sizeof(Sprite));
 
@@ -32,7 +32,7 @@ Node* Sprite_Create(SDL_Texture* texture, Vec2 size)
     self->super.draw = Sprite_Draw;
     self->super.destroy = Sprite_Destroy;
 
-    self->super.position = Vec2_Create(0, 0);
+    self->super.position = position;
     self->super.children = 0;
 
     self->texture = texture;

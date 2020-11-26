@@ -5,7 +5,7 @@
 
 typedef struct RectShape {
     Node super;
-    Rect rect;
+    Vec2 size;
 } RectShape;
 
 Node* RectShape_Create(Vec2 position, Vec2 size);

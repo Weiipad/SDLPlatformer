@@ -47,9 +47,9 @@ void GameState_Run(GameState* self)
 
         Uint32 now_tick = SDL_GetTicks();
 
-        float deltaTime = (float)(now_tick - prev_tick) / 1000.0f;
+        self->deltaTime = (float)(now_tick - prev_tick) / 1000.0f;
 
-        Scene_Update(self->current_scene, deltaTime);
+        Scene_Update(self->current_scene);
 
         SDL_RenderPresent(self->renderer);
     }

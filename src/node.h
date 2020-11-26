@@ -7,7 +7,7 @@ typedef struct Node
 {
     void* self;
     void (*init)(void* self);
-    void (*update)(void* self, float deltaTime);
+    void (*update)(void* self, Vec2 offset);
     void (*draw)(void* self, Vec2 offset);
     void (*destroy)(void* self);
 
@@ -24,8 +24,15 @@ void Node_PopChild(Node* self);
 
 void Node_Init(Node* self);
 
-void Node_Update(Node* self, float deltaTime);
+void Node_Update(Node* self, Vec2 offset);
 
 void Node_Draw(Node* self, Vec2 offset);
 
 void Node_Destroy(Node* self);
+
+typedef struct Dummy
+{
+    Node super;
+} Dummy;
+
+Node* Dummy_Create();

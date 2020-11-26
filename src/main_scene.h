@@ -5,7 +5,7 @@
 
 typedef struct MainScene 
 {
-    Scene vtable;
+    Scene super;
     Node* root;
 } MainScene;
 
