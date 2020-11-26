@@ -42,16 +42,16 @@ void Node_Update(Node* self, float deltaTime)
     }
 }
 
-void Node_Draw(Node* self, Vec2 offset)
+void Node_Draw(Node* self, Vec2 offset_)
 {
     if (!self) return;
 
-    Vec2 offset_ = Vec2_Add(self->position, offset);
-
     if (self->draw) self->draw(self->self, offset_);
+
+    Vec2 offset = Vec2_Add(self->position, offset_);
     for (Node* i = self->children; i; i = i->next)
     {
-        Node_Draw(i, offset_);
+        Node_Draw(i, offset);
     }
 }
 

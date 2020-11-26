@@ -14,8 +14,10 @@ void MainScene_Start(void* self_)
     SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, img);
     
 
+    Node* rect = RectShape_Create(Vec2_Create(50, 50), Vec2_Create(100, 100));
+
     Node_PushChild(self->root, Sprite_Create(texture, Vec2_Create(100.0f, 100.0f)));
-    Node_PushChild(self->root, RectShape_Create(Vec2_Create(-25, -25), Vec2_Create(100, 100)));
+    Node_PushChild(self->root, rect);
 
 
     Node_Init(self->root);
@@ -25,11 +27,16 @@ void MainScene_Update(void* self_, float deltaTime)
 {
     MainScene* self = (MainScene*)self_;
     SDL_Renderer* renderer = GetGameState()->renderer;
+    
     SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0xff);
     SDL_RenderClear(renderer);
 
     Node_Update(self->root, deltaTime);
     Node_Draw(self->root, Vec2_Create(0, 0));
+    
+    SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0, 0);
+    SDL_Rect dst = { 100, 0, 100, 100};
+    SDL_RenderFillRect(renderer, &dst);
 }
 
 void MainScene_Destroy(void* self_)
@@ -50,7 +57,7 @@ Scene* MainScene_Create()
 
     obj->root = (Node*)malloc(sizeof(Node));
     obj->root->self = 0;
-    obj->root->position = Vec2_Create(400, 300);
+    obj->root->position = Vec2_Create(0, 0);
     obj->root->next = 0;
     obj->root->children = 0;
 
