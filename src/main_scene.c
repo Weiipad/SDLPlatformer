@@ -3,6 +3,7 @@
 #include <stdlib.h>
 
 #include "sprite.h"
+#include "rect_shape.h"
 
 void MainScene_Start(void* self_)
 {
@@ -14,6 +15,9 @@ void MainScene_Start(void* self_)
     
 
     Node_PushChild(self->root, Sprite_Create(texture, Vec2_Create(100.0f, 100.0f)));
+    Node_PushChild(self->root, RectShape_Create(Vec2_Create(-25, -25), Vec2_Create(100, 100)));
+
+
     Node_Init(self->root);
 }
 

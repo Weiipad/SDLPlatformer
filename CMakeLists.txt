@@ -7,8 +7,7 @@ find_package(SDL2 REQUIRED)
 add_executable(plat)
 
 target_sources(plat
-    PUBLIC
-    
+PUBLIC    
     src/sdl_header.h
     src/scene.h
     src/main_scene.h
@@ -16,9 +15,10 @@ target_sources(plat
     src/game_state.h
     src/my_math.h
     src/sprite.h
-
-    PRIVATE
-
+    src/rect_shape.h
+    src/level.h
+    src/player.h
+PRIVATE
     src/main.c
     src/scene.c
     src/main_scene.c
@@ -26,6 +26,9 @@ target_sources(plat
     src/game_state.c
     src/my_math.c
     src/sprite.c
+    src/rect_shape.c
+    src/level.c
+    src/player.c
 )
 
 target_link_libraries(plat SDL2 m)

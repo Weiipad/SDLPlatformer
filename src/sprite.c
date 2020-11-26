@@ -8,8 +8,8 @@ void Sprite_Draw(void* self_, Vec2 offset)
     SDL_Renderer* renderer = GetGameState()->renderer;
 
     SDL_Rect dst = {};
-    dst.x = offset.x;
-    dst.y = offset.y;
+    dst.x = self->super.position.x + offset.x;
+    dst.y = self->super.position.y + offset.y;
     dst.w = self->size.x;
     dst.h = self->size.y;
     
