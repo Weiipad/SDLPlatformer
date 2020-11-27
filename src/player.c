@@ -47,7 +47,7 @@ void Player_Update(void* self_, Vec2 offset_)
     Vec2 acc = Vec2_Create(dir * 2.0f, 9.8);
     if (dir == 0)
     {
-        acc.x = Sign(self->velocity.x) * -4.0f;
+        acc.x = -self->velocity.x * 8.0f;
     }
 
     Vec2_AddAssign(&self->velocity, Vec2_Mul(acc, GetGameState()->deltaTime));

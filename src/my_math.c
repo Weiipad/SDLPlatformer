@@ -4,7 +4,7 @@
 
 int Approximate(float v1, float v2)
 {
-    return SDL_fabsf(v1 - v2) < 1e-6;
+    return SDL_fabsf(v1 - v2) < 1e-3;
 }
 
 float Clamp(float v, float min, float max)
