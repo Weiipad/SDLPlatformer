@@ -6,7 +6,8 @@
 typedef struct Player
 {
     Node super;
+    Rect collider;
     Vec2 velocity;
 } Player;
 
-Player* Player_Create();
+Player* Player_Create(Vec2 start);

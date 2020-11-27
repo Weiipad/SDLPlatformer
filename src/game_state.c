@@ -2,6 +2,8 @@
 
 static GameState* instance;
 
+const static Uint8 FPS = 1000/120;
+
 GameState* GetGameState()
 {
     if (!instance) instance = (GameState*)malloc(sizeof(GameState));
@@ -45,13 +47,18 @@ void GameState_Run(GameState* self)
             }
         }
 
-        Uint32 now_tick = SDL_GetTicks();
+        if (SDL_GetTicks() - prev_tick < FPS)
+        {
+            SDL_Delay(FPS - SDL_GetTicks() + prev_tick);
+        }
 
-        self->deltaTime = (float)(now_tick - prev_tick) / 1000.0f;
-
+        self->deltaTime = (float)(SDL_GetTicks() - prev_tick) / 1000.0f;
+        prev_tick = SDL_GetTicks();
         Scene_Update(self->current_scene);
 
         SDL_RenderPresent(self->renderer);
+
+        
     }
 }
 

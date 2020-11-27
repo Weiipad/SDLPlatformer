@@ -2,6 +2,8 @@
 
 int Approximate(float v1, float v2);
 
+float Clamp(float v, float min, float max);
+
 typedef struct Vec2 
 {
     float x;

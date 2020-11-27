@@ -20,7 +20,7 @@ void RectShape_Draw(void* self_, Vec2 offset_)
     rect.h = self->size.y;
 
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xff);
-    SDL_RenderFillRect(renderer, &rect);
+    SDL_RenderDrawRect(renderer, &rect);
 }
 
 void RectShape_Destroy(void* self_)

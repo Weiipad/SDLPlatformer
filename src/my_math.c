@@ -7,6 +7,13 @@ int Approximate(float v1, float v2)
     return SDL_fabsf(v1 - v2) < 1e-6;
 }
 
+float Clamp(float v, float min, float max)
+{
+    if (v < min) return min;
+    if (v > max) return max;
+    return v;
+}
+
 void Vec2_Log(const Vec2* self)
 {
     SDL_Log("(%f, %f)", self->x, self->y);
