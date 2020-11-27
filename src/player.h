@@ -10,4 +10,4 @@ typedef struct Player
     Vec2 velocity;
 } Player;
 
-Player* Player_Create(Vec2 start);
+Player* Player_Create(Vec2 start, Vec2 size);

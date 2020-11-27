@@ -14,6 +14,13 @@ float Clamp(float v, float min, float max)
     return v;
 }
 
+int Sign(float x)
+{
+    if (x > 0) return 1;
+    if (x == 0) return 0;
+    if (x < 0) return -1;
+}
+
 void Vec2_Log(const Vec2* self)
 {
     SDL_Log("(%f, %f)", self->x, self->y);

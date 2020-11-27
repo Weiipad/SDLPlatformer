@@ -10,9 +10,7 @@ void MainScene_Start(void* self_)
     MainScene* self = (MainScene*)self_;
     SDL_Renderer* renderer = GetGameState()->renderer;
 
-    self->player = Player_Create(Vec2_Create(0, 0));
-
-
+    self->player = Player_Create(Vec2_Create(0, 0), Vec2_Create(50, 50));
     Node_PushChild(&self->player->super, RectShape_Create(Vec2_Create(0, 0), Vec2_Create(50, 50)));
     
     Node_PushChild(self->root, &self->player->super);
@@ -29,6 +27,9 @@ void MainScene_Update(void* self_)
     
     SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0xff);
     SDL_RenderClear(renderer);
+
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xff);
+    SDL_RenderDrawLine(renderer, 0, 300, 800, 300);
     Node_Draw(self->root, Vec2_Create(0, 0));
 }
 
