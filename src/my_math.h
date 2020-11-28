@@ -6,6 +6,8 @@ float Clamp(float v, float min, float max);
 
 int Sign(float x);
 
+float ClampRound(float v, float radius);
+
 typedef struct Vec2 
 {
     float x;

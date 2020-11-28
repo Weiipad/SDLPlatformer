@@ -14,6 +14,11 @@ float Clamp(float v, float min, float max)
     return v;
 }
 
+float ClampRound(float v, float radius)
+{
+    return Clamp(v, -radius, radius);
+}
+
 int Sign(float x)
 {
     if (x > 0) return 1;

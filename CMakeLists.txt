@@ -18,6 +18,7 @@ PUBLIC
     src/rect_shape.h
     src/level.h
     src/player.h
+    src/array_list.h
 PRIVATE
     src/main.c
     src/scene.c
@@ -29,6 +30,7 @@ PRIVATE
     src/rect_shape.c
     src/level.c
     src/player.c
+    src/array_list.c
 )
 
 target_link_libraries(plat SDL2)

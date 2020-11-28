@@ -44,21 +44,36 @@ void Player_Update(void* self_, Vec2 offset_)
     const Uint8* key = SDL_GetKeyboardState(0);
     float dir = getMoveDir(key);
 
-    Vec2 acc = Vec2_Create(dir * 2.0f, 9.8);
-    if (dir == 0)
+    Vec2 acc = Vec2_Create(dir * 8.0f, 9.8);
+    if (dir == 0 && ground)
     {
-        acc.x = -self->velocity.x * 8.0f;
+        acc.x = -self->velocity.x * 20.0f;
+        
     }
+
+    if (dir * self->velocity.x < 0)
+    {
+        if (ground)
+        {
+            acc.x *= 4.0f;
+        }
+        else
+        {
+            acc.x = 0.0f;
+        }
+        
+    }
+    
 
     Vec2_AddAssign(&self->velocity, Vec2_Mul(acc, GetGameState()->deltaTime));
     
     if (key[SDL_SCANCODE_C] && ground)
     {
-        self->velocity.y -= 3;
+        self->velocity.y -= 4.5f;
         ground = 0;
     }
 
-    self->velocity.x = Clamp(self->velocity.x, -2, 2);
+    self->velocity.x = ClampRound(self->velocity.x, 3.5f);
     if (Approximate(self->velocity.x, 0))
     {
         self->velocity.x = 0;
@@ -71,9 +86,7 @@ void Player_Update(void* self_, Vec2 offset_)
 
 Player* Player_Create(Vec2 start, Vec2 size)
 {
-    Player* self = (Player*)malloc(sizeof(Player));
-
-    memset(self, 0, sizeof(Player));
+    Player* self = (Player*)calloc(1, sizeof(Player));
 
     self->super.self = self;
     self->super.update = Player_Update;
