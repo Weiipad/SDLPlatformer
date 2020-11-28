@@ -71,6 +71,10 @@ Scene* MainScene_Create()
 
     self->root = (Node*)malloc(sizeof(Node));
     self->root->self = 0;
+    self->root->init = 0;
+    self->root->update = 0;
+    self->root->draw = 0;
+    self->root->destroy = 0;
     self->root->position = Vec2_Create(0, 0);
     self->root->next = 0;
     self->root->children = 0;

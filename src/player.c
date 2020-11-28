@@ -21,9 +21,9 @@ static void tryMove(Player* self, Vec2 amount)
     
     // Move X
     float dx = amount.x / (float)DETECT_NUM;
-    target.pos.x += amount.x;
     for (int i = 0; i < DETECT_NUM; i++)
     {
+        target.pos.x += dx;
         if (Level_Collides(self->current_level, &target, &collide))
         {
             if (amount.x > 0)
