@@ -114,8 +114,8 @@ int Rect_Includes(const Rect* self, Vec2 v)
     float right = self->pos.x + self->size.x;
     float bottom = self->pos.y + self->size.y;
 
-    if (v.x < self->pos.x || v.x > right) return 0;
-    if (v.y < self->pos.y || v.y > bottom) return 0;
+    if (v.x <= self->pos.x || v.x >= right) return 0;
+    if (v.y <= self->pos.y || v.y >= bottom) return 0;
     return 1;
 }
 
@@ -128,4 +128,13 @@ int Rect_Overlaps(const Rect* self, const Rect* rhs)
         Rect_Includes(self, right_bottom) ||
         Rect_Includes(self, Vec2_Sub(right_bottom, Vec2_ProjY(rhs->size))) ||
         Rect_Includes(self, Vec2_Sub(right_bottom, Vec2_ProjX(rhs->size)));
+}
+
+int Rect_OverlapsSDLRect(const Rect* self, const SDL_Rect* rhs)
+{
+    return 
+        Rect_Includes(self, Vec2_Create(rhs->x, rhs->y)) ||
+        Rect_Includes(self, Vec2_Create(rhs->x + rhs->w, rhs->y + rhs->h)) ||
+        Rect_Includes(self, Vec2_Create(rhs->x + rhs->w, rhs->y)) ||
+        Rect_Includes(self, Vec2_Create(rhs->x, rhs->y + rhs->h));
 }

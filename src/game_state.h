@@ -3,11 +3,15 @@
 #include "sdl_header.h"
 #include "scene.h"
 
+#include "my_math.h"
+
 typedef struct GameState 
 {
     SDL_Window* window;
     SDL_Renderer* renderer;
     Scene* current_scene;
+
+    Rect screen_rect;
 
     int running;
     float deltaTime;

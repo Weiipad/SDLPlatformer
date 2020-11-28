@@ -17,7 +17,12 @@ void GameState_Init(GameState* self, Scene* scene)
         printf("Failed to init sdl, exiting");
     }
 
-    self->window = SDL_CreateWindow("SDL Platformer", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, SDL_WINDOW_SHOWN);
+    Vec2 screen_size = Vec2_Create(800, 600);
+
+    self->screen_rect.pos = Vec2_Create(0, 0);
+    self->screen_rect.size = screen_size;
+
+    self->window = SDL_CreateWindow("SDL Platformer", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screen_size.x, screen_size.y, SDL_WINDOW_SHOWN);
     self->renderer = SDL_CreateRenderer(self->window, -1, SDL_RENDERER_ACCELERATED);
     self->running = 1;
     self->current_scene = scene;

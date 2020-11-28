@@ -13,6 +13,8 @@ ArrayList ArrayList_CreateEmpty(int dataSize);
 
 ArrayList ArrayList_CreateWithSize(int size, int dataSize);
 
+void ArrayList_Clear(ArrayList* self);
+
 void ArrayList_PushBack(ArrayList* self, const void* v);
 
 void ArrayList_PopBack(ArrayList* self);

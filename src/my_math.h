@@ -1,5 +1,7 @@
 #pragma once
 
+#include "sdl_header.h"
+
 int Approximate(float v1, float v2);
 
 float Clamp(float v, float min, float max);
@@ -50,3 +52,5 @@ typedef struct Rect
 int Rect_Includes(const Rect* self, Vec2 v);
 
 int Rect_Overlaps(const Rect* self, const Rect* rhs);
+
+int Rect_OverlapsSDLRect(const Rect* self, const SDL_Rect* rhs);

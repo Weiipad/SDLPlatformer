@@ -5,40 +5,110 @@
 
 static int ground = 0;
 
+static float xRemainder = 0;
+static float yRemainder = 0;
+
 static float getMoveDir(const Uint8* key);
 
-static void tryMoveTo(Player* self, Vec2 amount)
+static void tryMove(Player* self, Vec2 amount)
 {
-    // Move X direction
-    float targetX = self->super.position.x + amount.x;
-    if (targetX >= 800 - self->collider.size.x)
+    Rect target = {};
+    target.pos = self->super.position;
+    target.size = self->size;
+
+    /*
+    xRemainder += amount.x;
+    int moveX = (int)roundf(xRemainder);
+    if (moveX != 0)
     {
-        targetX = 800 - self->collider.size.x;
-        self->velocity.x = 0;
+        xRemainder -= moveX;
+        int sign = Sign(moveX);
+        while (moveX != 0)
+        {
+            if (!Level_Collides(self->current_level, &target, 0))
+            {
+                target.pos.x += sign;
+                moveX -= sign;
+            }
+            else
+            {
+                self->velocity.x = 0;
+                break;
+            }
+        }
     }
 
-    if (targetX <= 0)
-    {
-        targetX = 0;
-        self->velocity.x = 0;
-    }
-    self->super.position.x = targetX;
+    self->super.position.x = target.pos.x;
 
-    // Move Y direction
-    float targetY = self->super.position.y + amount.y;
-    if (targetY >= 300 - self->collider.size.y)
+    yRemainder += amount.y;
+    int moveY = (int)roundf(yRemainder);
+    if (moveY != 0)
     {
-        targetY = 300 - self->collider.size.y;
-        self->velocity.y = 0;
-        ground = 1;
+        yRemainder -= moveY;
+        int sign = Sign(moveY);
+        while (moveY != 0)
+        {
+            if (!Level_Collides(self->current_level, &target, 0))
+            {
+                target.pos.y += sign;
+                moveY -= sign;
+            }
+            else
+            {
+                self->velocity.y = 0;
+                break;
+            }
+        }
     }
 
-    if (targetY <= 0)
+    self->super.position.y = target.pos.y;
+    */
+    
+    Rect collide;
+    
+    // Move X
+    float dx = amount.x / 4.0f;
+    target.pos.x += amount.x;
+    for (int i = 0; i < 4; i++)
     {
-        targetY = 0;
-        self->velocity.y = 0;
+        if (Level_Collides(self->current_level, &target, &collide))
+        {
+            if (amount.x > 0)
+            {
+                target.pos.x = collide.pos.x - target.size.x;
+            }
+            else if (amount.x < 0)
+            {
+                target.pos.x = collide.pos.x + collide.size.x;
+            }
+            self->velocity.x = 0;
+            break;
+        }
     }
-    self->super.position.y = targetY;
+    self->super.position.x = target.pos.x;
+
+    // Move Y
+    float dy = amount.y / 4.0f;
+    for (int i = 0; i < 4; i++)
+    {
+        target.pos.y += dy;
+        if (Level_Collides(self->current_level, &target, &collide))
+        {
+            if (amount.y > 0)
+            {
+                target.pos.y = collide.pos.y - target.size.y;
+                ground = 1;
+            }
+            else if (amount.y < 0)
+            {
+                target.pos.y = collide.pos.y + collide.size.y;
+            }
+            self->velocity.y = 0;
+
+            break;
+        }
+    }
+    self->super.position.y = target.pos.y;
 }
 
 void Player_Update(void* self_, Vec2 offset_)
@@ -73,7 +143,7 @@ void Player_Update(void* self_, Vec2 offset_)
     {
         if (!self->jumpDown && ground)
         {
-            self->velocity.y -= 4.0f;
+            self->velocity.y -= 4.5f;
             ground = 0;
             self->jumpDown = 1;
         }
@@ -90,10 +160,10 @@ void Player_Update(void* self_, Vec2 offset_)
         self->velocity.x = 0;
     }
 
-    tryMoveTo(self, self->velocity);
+    tryMove(self, self->velocity);
 }
 
-Player* Player_Create(Vec2 start, Vec2 size)
+Player* Player_Create(Level* current_level, Vec2 start, Vec2 size)
 {
     Player* self = (Player*)calloc(1, sizeof(Player));
 
@@ -101,9 +171,11 @@ Player* Player_Create(Vec2 start, Vec2 size)
     self->super.update = Player_Update;
     self->super.position = start;
 
+    self->current_level = current_level;
+
     self->velocity = Vec2_Create(0, 0);
 
-    self->collider.size = size;
+    self->size = size;
     self->jumpDown = 0;
 
     return self;

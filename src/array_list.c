@@ -21,6 +21,11 @@ ArrayList ArrayList_CreateEmpty(int dataSize)
     return self;
 }
 
+void ArrayList_Clear(ArrayList* self)
+{
+    self->size = 0;
+}
+
 void ArrayList_PushBack(ArrayList* self, const void* v)
 {
     if (self->size >= self->capacity)

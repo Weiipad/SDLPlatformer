@@ -3,12 +3,16 @@
 #include "scene.h"
 #include "node.h"
 #include "player.h"
+#include "level.h"
 
 typedef struct MainScene 
 {
     Scene super;
     Node* root;
     Player* player;
+    Level* level;
+
+    
 } MainScene;
 
 Scene* MainScene_Create();
