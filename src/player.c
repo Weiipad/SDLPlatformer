@@ -9,6 +9,7 @@ static float getMoveDir(const Uint8* key);
 
 static void tryMoveTo(Player* self, Vec2 amount)
 {
+    // Move X direction
     float targetX = self->super.position.x + amount.x;
     if (targetX >= 800 - self->collider.size.x)
     {
@@ -22,6 +23,8 @@ static void tryMoveTo(Player* self, Vec2 amount)
         self->velocity.x = 0;
     }
     self->super.position.x = targetX;
+
+    // Move Y direction
     float targetY = self->super.position.y + amount.y;
     if (targetY >= 300 - self->collider.size.y)
     {
@@ -66,13 +69,22 @@ void Player_Update(void* self_, Vec2 offset_)
     
     Vec2_AddAssign(&self->velocity, Vec2_Mul(acc, GetGameState()->deltaTime));
     
-    if (key[SDL_SCANCODE_C] && ground)
+    if (key[SDL_SCANCODE_C])
     {
-        self->velocity.y -= 4.0f;
-        ground = 0;
+        if (!self->jumpDown && ground)
+        {
+            self->velocity.y -= 4.0f;
+            ground = 0;
+            self->jumpDown = 1;
+        }
     }
+    else
+    {
+        self->jumpDown = 0;
+    }
+    
 
-    self->velocity.x = ClampRound(self->velocity.x, 3.5f);
+    self->velocity.x = ClampRound(self->velocity.x, 3.25f);
     if (Approximate(self->velocity.x, 0))
     {
         self->velocity.x = 0;
@@ -92,6 +104,7 @@ Player* Player_Create(Vec2 start, Vec2 size)
     self->velocity = Vec2_Create(0, 0);
 
     self->collider.size = size;
+    self->jumpDown = 0;
 
     return self;
 }

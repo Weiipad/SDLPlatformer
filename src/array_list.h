@@ -3,7 +3,7 @@
 typedef struct ArrayList
 {
     void* array;
-    int ptr;
+    int size;
     int capacity;
 
     int dataSize;

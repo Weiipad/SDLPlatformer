@@ -109,7 +109,7 @@ Vec2 Vec2_Normalize(Vec2 self)
     return self;
 }
 
-int RectIncludes(const Rect* self, Vec2 v)
+int Rect_Includes(const Rect* self, Vec2 v)
 {
     float right = self->pos.x + self->size.x;
     float bottom = self->pos.y + self->size.y;
@@ -119,13 +119,13 @@ int RectIncludes(const Rect* self, Vec2 v)
     return 1;
 }
 
-int RectOverlaps(const Rect* self, const Rect* rhs)
+int Rect_Overlaps(const Rect* self, const Rect* rhs)
 {
     Vec2 right_bottom = Vec2_Add(rhs->pos, rhs->size);
 
     return 
-        RectIncludes(self, rhs->pos) ||
-        RectIncludes(self, right_bottom) ||
-        RectIncludes(self, Vec2_Sub(right_bottom, Vec2_ProjY(rhs->size))) ||
-        RectIncludes(self, Vec2_Sub(right_bottom, Vec2_ProjX(rhs->size)));
+        Rect_Includes(self, rhs->pos) ||
+        Rect_Includes(self, right_bottom) ||
+        Rect_Includes(self, Vec2_Sub(right_bottom, Vec2_ProjY(rhs->size))) ||
+        Rect_Includes(self, Vec2_Sub(right_bottom, Vec2_ProjX(rhs->size)));
 }

@@ -47,6 +47,6 @@ typedef struct Rect
 } Rect;
 
 
-int RectIncludes(const Rect* self, Vec2 v);
+int Rect_Includes(const Rect* self, Vec2 v);
 
-int RectOverlaps(const Rect* self, const Rect* rhs);
+int Rect_Overlaps(const Rect* self, const Rect* rhs);
