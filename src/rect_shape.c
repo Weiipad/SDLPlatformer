@@ -3,6 +3,8 @@
 #include "sdl_header.h"
 #include "game_state.h"
 
+#include "color.h"
+
 void RectShape_Update(void* self_, Vec2 offset_)
 {
     RectShape* self = (RectShape*)self_;
@@ -19,7 +21,10 @@ void RectShape_Draw(void* self_, Vec2 offset_)
     rect.w = self->size.x;
     rect.h = self->size.y;
 
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xff);
+    uint8_t r, g, b, a;
+    GetColorRGBA(self->color, &r, &g, &b, &a);
+
+    SDL_SetRenderDrawColor(renderer, r, g, b, a);
     SDL_RenderDrawRect(renderer, &rect);
 }
 
@@ -28,7 +33,7 @@ void RectShape_Destroy(void* self_)
     
 }
 
-Node* RectShape_Create(Vec2 position, Vec2 size)
+Node* RectShape_Create(uint32_t color, Vec2 position, Vec2 size)
 {
     RectShape* self = (RectShape*)malloc(sizeof(RectShape));
 
@@ -43,6 +48,8 @@ Node* RectShape_Create(Vec2 position, Vec2 size)
     self->super.position = position;
 
     self->size = size;
+
+    self->color = color;
 
     return &self->super;
 }

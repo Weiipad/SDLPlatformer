@@ -11,7 +11,7 @@ void MainScene_Start(void* self_)
     SDL_Renderer* renderer = GetGameState()->renderer;
 
     self->player = Player_Create(Vec2_Create(0, 0), Vec2_Create(50, 50));
-    Node_PushChild(&self->player->super, RectShape_Create(Vec2_Create(0, 0), Vec2_Create(50, 50)));
+    Node_PushChild(&self->player->super, RectShape_Create(0xff0000ff, Vec2_Create(0, 0), Vec2_Create(50, 50)));
     
     Node_PushChild(self->root, &self->player->super);
 

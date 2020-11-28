@@ -19,6 +19,7 @@ PUBLIC
     src/level.h
     src/player.h
     src/array_list.h
+    src/color.h
 PRIVATE
     src/main.c
     src/scene.c
@@ -31,6 +32,7 @@ PRIVATE
     src/level.c
     src/player.c
     src/array_list.c
+    src/color.c
 )
 
 target_link_libraries(plat SDL2)

@@ -3,13 +3,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 ArrayList ArrayList_CreateWithSize(int size, int dataSize)
 {
     ArrayList self = {};
     self.array = malloc(size * dataSize);
-    self.capacity = dataSize * size;
-    self.ptr = dataSize * size;
+    self.capacity = size;
+    self.ptr = size;
     self.dataSize = dataSize;
 
     return self;
@@ -32,24 +31,24 @@ void ArrayList_PushBack(ArrayList* self, const void* v)
         self->capacity *= 2;
         self->array = temp;
     }
-    memcpy(self->array + self->ptr, v, self->dataSize);
-    self->ptr += self->dataSize;
+    memcpy(self->array + self->ptr * self->dataSize, v, self->dataSize);
+    self->ptr += 1;
 }
 
 void ArrayList_PopBack(ArrayList* self)
 {
-    self->ptr -= self->dataSize;
+    self->ptr -= 1;
 }
 
 void* ArrayList_Get(const ArrayList* self, int index)
 {
-    if (index * self->dataSize > self->ptr) return 0;
+    if (index > self->ptr) return 0;
     return self->array + index * self->dataSize;
 }
 
 void ArrayList_Set(const ArrayList* self, int index, const void* v)
 {
-    if (index * self->dataSize > self->ptr) return;
+    if (index > self->ptr) return;
     memcpy(self->array + index * self->dataSize, v, self->dataSize);
 }
 

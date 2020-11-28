@@ -10,4 +10,6 @@ typedef struct Level
     ArrayList tiles;
 } Level;
 
+int Level_Collides(Level* self, const Rect* collider);
+
 Level* Level_Create(SDL_Surface* level);

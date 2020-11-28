@@ -64,12 +64,11 @@ void Player_Update(void* self_, Vec2 offset_)
         
     }
     
-
     Vec2_AddAssign(&self->velocity, Vec2_Mul(acc, GetGameState()->deltaTime));
     
     if (key[SDL_SCANCODE_C] && ground)
     {
-        self->velocity.y -= 4.5f;
+        self->velocity.y -= 4.0f;
         ground = 0;
     }
 
@@ -80,8 +79,6 @@ void Player_Update(void* self_, Vec2 offset_)
     }
 
     tryMoveTo(self, self->velocity);
-
-    Vec2_Log(&self->super.position);
 }
 
 Player* Player_Create(Vec2 start, Vec2 size)
