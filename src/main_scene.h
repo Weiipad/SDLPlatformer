@@ -12,7 +12,7 @@ typedef struct MainScene
     Player* player;
     Level* level;
 
-    
+    Vec2 camera_position;
 } MainScene;
 
 Scene* MainScene_Create();

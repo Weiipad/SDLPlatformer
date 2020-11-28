@@ -62,8 +62,7 @@ void Level_Draw(void* self_, Vec2 offset_)
     Rect* screen = &GetGameState()->screen_rect;
     SDL_Renderer* renderer = GetGameState()->renderer;
 
-    int count = 0;
-    SDL_SetRenderDrawColor(renderer, 0, 0xff, 0, 0xff);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xff);
     for (int i = 0; i < self->tiles.size; i++)
     {
         Rect* current = ArrayList_Get(&self->tiles, i);
@@ -76,11 +75,8 @@ void Level_Draw(void* self_, Vec2 offset_)
         if (Rect_OverlapsSDLRect(screen, &r))
         {
             SDL_RenderDrawRect(renderer, &r);
-            count++;
         }
     }
-
-    SDL_Log("Tile rendered: %d", count);
 }
 
 void Level_Destroy(void* self_)

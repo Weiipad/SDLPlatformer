@@ -3,6 +3,8 @@
 #include "sdl_header.h"
 #include "game_state.h"
 
+const int DETECT_NUM = 5;
+
 static int ground = 0;
 
 static float xRemainder = 0;
@@ -15,61 +17,12 @@ static void tryMove(Player* self, Vec2 amount)
     Rect target = {};
     target.pos = self->super.position;
     target.size = self->size;
-
-    /*
-    xRemainder += amount.x;
-    int moveX = (int)roundf(xRemainder);
-    if (moveX != 0)
-    {
-        xRemainder -= moveX;
-        int sign = Sign(moveX);
-        while (moveX != 0)
-        {
-            if (!Level_Collides(self->current_level, &target, 0))
-            {
-                target.pos.x += sign;
-                moveX -= sign;
-            }
-            else
-            {
-                self->velocity.x = 0;
-                break;
-            }
-        }
-    }
-
-    self->super.position.x = target.pos.x;
-
-    yRemainder += amount.y;
-    int moveY = (int)roundf(yRemainder);
-    if (moveY != 0)
-    {
-        yRemainder -= moveY;
-        int sign = Sign(moveY);
-        while (moveY != 0)
-        {
-            if (!Level_Collides(self->current_level, &target, 0))
-            {
-                target.pos.y += sign;
-                moveY -= sign;
-            }
-            else
-            {
-                self->velocity.y = 0;
-                break;
-            }
-        }
-    }
-
-    self->super.position.y = target.pos.y;
-    */
-    
     Rect collide;
     
     // Move X
-    float dx = amount.x / 4.0f;
+    float dx = amount.x / (float)DETECT_NUM;
     target.pos.x += amount.x;
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < DETECT_NUM; i++)
     {
         if (Level_Collides(self->current_level, &target, &collide))
         {
@@ -88,8 +41,8 @@ static void tryMove(Player* self, Vec2 amount)
     self->super.position.x = target.pos.x;
 
     // Move Y
-    float dy = amount.y / 4.0f;
-    for (int i = 0; i < 4; i++)
+    float dy = amount.y / (float)DETECT_NUM;
+    for (int i = 0; i < DETECT_NUM; i++)
     {
         target.pos.y += dy;
         if (Level_Collides(self->current_level, &target, &collide))

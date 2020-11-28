@@ -42,6 +42,8 @@ float Vec2_Magnitude(Vec2 self);
 
 Vec2 Vec2_Normalize(Vec2 self);
 
+Vec2 Vec2_Neg(Vec2 self);
+
 typedef struct Rect 
 {
     Vec2 pos;

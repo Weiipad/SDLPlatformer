@@ -109,6 +109,13 @@ Vec2 Vec2_Normalize(Vec2 self)
     return self;
 }
 
+Vec2 Vec2_Neg(Vec2 self)
+{
+    self.x = -self.x;
+    self.y = -self.y;
+    return self;
+}
+
 int Rect_Includes(const Rect* self, Vec2 v)
 {
     float right = self->pos.x + self->size.x;
